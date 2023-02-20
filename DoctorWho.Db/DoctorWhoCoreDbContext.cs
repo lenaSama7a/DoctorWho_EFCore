@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DoctorWho.Db.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace DoctorWho.Db
 {
@@ -118,6 +119,9 @@ namespace DoctorWho.Db
 
             };
             modelBuilder.Entity<EpisodeEnemy>().HasData(episodeEnemiesList);
+
+            modelBuilder.Entity<ViewEpisodes>().HasNoKey().ToView("ViewEpisodes");
+
         }
     }
 }
