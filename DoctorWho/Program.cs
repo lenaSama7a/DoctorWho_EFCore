@@ -159,6 +159,57 @@ public class Program
         _context.Episodes.Update(episode);
         _context.SaveChanges();
     }
+
+    public static void AddEnemyToEpisode(int episodeID, int enemyID)
+    {
+        var episode =  _context.Episodes.Find(episodeID);
+        var enemy = _context.Enemies.Find(enemyID);
+        if(episode != null && enemy != null)
+        {
+            var episodeEnemy = new EpisodeEnemy { EpisodeId = episodeID, EnemyId = enemyID };
+            _context.EpisodeEnemies.Add(episodeEnemy);
+            _context.SaveChanges();
+        }
+    }
+
+    public static void AddCompanionToEpisode(int episodeID, int companionID)
+    {
+        var episode = _context.Episodes.Find(episodeID);
+        var companion = _context.Companions.Find(companionID);
+        if (episode != null && companion != null)
+        {
+            var episodeCompanion = new EpisodeCompanion { EpisodeId = episodeID, CompanionId = companionID };
+            _context.EpisodeCompanions.Add(episodeCompanion);
+            _context.SaveChanges();
+        }
+    }
+
+    public static List<Doctor> GetAllDoctors()
+    {
+        var allDoctors = _context.Doctors.ToList();
+        return allDoctors;
+    }
+
+    public static Enemy? GetEnemyById(int enemyID)
+    {
+        var enemy = _context.Enemies.Find(enemyID);
+        if (enemy != null)
+        {
+            return enemy;
+        }
+        throw new NullReferenceException("There's no enemy with this ID");
+    }
+
+    public static Companion? GetCompanionById(int companionID)
+    {
+        var companion = _context.Companions.Find(companionID);
+        if (companion != null)
+        {
+            return companion;
+        }
+        throw new NullReferenceException("There's no companion with this ID");
+    }
+
     public static void Main(String[] args)
     {
         //CallFnCompanions(2); //Willa Cather,Joan Didion
